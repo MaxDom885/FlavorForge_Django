@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{%load static%}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'accueil' %}"> <img src="{% static 'images/logo/F.png' %}" alt="logo FlavorForge" width="60" height="60"></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'accueil' %}active{% endif %}" href="{% url 'accueil' %}">
+                        <i class="fas fa-home"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'profil' %}active{% endif %}" href="{% url 'profil' %}">
+                        <i class="fas fa-user"></i> Profil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'mes_favoris' %}active{% endif %}" href="{% url 'mes_favoris' %}">
+                        <i class="fas fa-heart"></i> Favoris
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'publier_recette' %}active{% endif %}" href="{% url 'publier_recette' %}">
+                        <i class="fas fa-edit"></i> Publier une recette
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Publier une recette</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm p-4">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Champ Titre -->
+                    <div class="mb-3">
+                        <label for="id_titre" class="form-label">Titre de la recette</label>
+                        {{ form.titre }}
+                    </div>
+                    <!-- Champ Description -->
+                    <div class="mb-3">
+                        <label for="id_description" class="form-label">Description</label>
+                        {{ form.description }}
+                    </div>
+                    <!-- Champ Ingrédients -->
+                    <div class="mb-3">
+                        <label for="id_ingredients" class="form-label">Ingrédients</label>
+                        {{ form.ingredients }}
+                        <small class="text-muted">Séparez chaque ingrédient par une virgule.</small>
+                    </div>
+                    <!-- Champ Étapes -->
+                    <div class="mb-3">
+                        <label for="id_etapes" class="form-label">Étapes de préparation</label>
+                        {{ form.etapes }}
+                        <small class="text-muted">Séparez chaque étape par un saut de ligne.</small>
+                    </div>
+                    <!-- Champ Photo -->
+                    <div class="mb-3">
+                        <label for="id_photo" class="form-label">Photo de la recette</label>
+                        {{ form.photo }}
+                    </div>
+                    <!-- Bouton de publication -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-black">Publier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

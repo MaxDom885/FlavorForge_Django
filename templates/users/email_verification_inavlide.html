@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <div class="alert alert-danger" role="alert">
+        <h2 class="mb-3">Lien de vérification invalide</h2>
+        <p>Le lien de vérification d'email est invalide ou a expiré. Veuillez réessayer.</p>
+    </div>
+    <a href="{% url 'inscription' %}" class="btn btn-primary">Retour à l'inscription</a>
+</div>
+{% endblock %}

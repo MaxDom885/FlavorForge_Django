@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'accueil' %}">
+            <img src="{% static 'images/logo/F.png' %}" alt="logo FlavorForge" width="60" height="60">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'accueil' %}active{% endif %}" href="{% url 'accueil' %}">
+                        <i class="fas fa-home"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'profil' %}active{% endif %}" href="{% url 'profil' %}">
+                        <i class="fas fa-user"></i> Profil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'mes_favoris' %}active{% endif %}" href="{% url 'mes_favoris' %}">
+                        <i class="fas fa-heart"></i> Favoris
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'publier_recette' %}active{% endif %}" href="{% url 'publier_recette' %}">
+                        <i class="fas fa-edit"></i> Publier une recette
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-4">
+    <h2 class="mb-4">{{ recette.titre }}</h2>
+    <p class="mb-4">{{ recette.description }}</p>
+    
+    <h3 class="mb-3">Ingrédients</h3>
+    <ul class="list-group mb-4">
+        {% for ingredient in ingredients_list %}
+            <li class="list-group-item">{{ ingredient }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3 class="mb-3">Étapes</h3>
+    <ol class="list-group mb-4">
+        {% for etape in etapes_list %}
+            <li class="list-group-item">{{ etape }}</li>
+        {% endfor %}
+    </ol>
+
+    {% if recette.photo %}
+    <div class="image-container mb-4">
+        <img src="{{ recette.photo.url }}" alt="{{ recette.titre }}" class="img-fluid rounded">
+    </div>
+    {% endif %}
+
+    <div class="d-flex gap-3 mb-4">
+        <a href="{% url 'ajouter_favori' recette.id %}" class="btn btn-outline-dark">
+            {% if request.user in recette.favoris.all %}
+                <i class="bi bi-heart-fill"></i> Retirer des favoris
+            {% else %}
+                <i class="bi bi-heart"></i> Ajouter aux favoris
+            {% endif %}
+        </a>
+        <a href="{% url 'ajouter_reaction' recette.id 'like' %}" class="btn btn-outline-dark">
+            <i class="bi bi-hand-thumbs-up"></i> ({{ likes_count }})
+        </a>
+        <a href="{% url 'ajouter_reaction' recette.id 'dislike' %}" class="btn btn-outline-dark">
+            <i class="bi bi-hand-thumbs-down"></i> ({{ dislikes_count }})
+        </a>
+    </div>
+
+    <!-- Section des commentaires -->
+    <h3 class="mb-3">Commentaires</h3>
+    {% for commentaire in recette.commentaires.all %}
+    <div class="d-flex align-items-start mb-4">
+        <!-- Photo de profil -->
+        <div class="flex-shrink-0 me-3">
+            {% if commentaire.auteur.photo_profil %}
+            <img src="{{ commentaire.auteur.photo_profil.url }}" class="rounded-circle" width="50" height="50" alt="Photo de profil">
+            {% else %}
+            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                <i class="fas fa-user fa-2x text-muted"></i>
+            </div>
+            {% endif %}
+        </div>
+        <!-- Contenu du commentaire -->
+        <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="mb-0">{{ commentaire.auteur.username }}</h6>
+                <small class="text-muted">{{ commentaire.date_publication|date:"d M Y H:i" }}</small>
+            </div>
+            <p class="mb-0">{{ commentaire.contenu }}</p>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">Aucun commentaire pour le moment.</p>
+    {% endfor %}
+    <a href="{% url 'ajouter_commentaire' recette.id %}" class="btn btn-black">Ajouter un commentaire</a>
+</div>
+{% endblock %}

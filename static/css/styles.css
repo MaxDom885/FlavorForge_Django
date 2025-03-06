@@ -1,0 +1,243 @@
+/* Règles générales */
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
+/* Cartes de recettes */
+.card {
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: black;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Boutons principaux */
+.btn {
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-dark {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
+.btn-outline-dark:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Boutons avec icônes */
+.btn i {
+    margin-right: 5px;
+}
+
+/* Boutons de favoris */
+.btn-outline-dark .bi-heart {
+    color: black;
+}
+
+.btn-outline-dark .bi-heart-fill {
+    color: black;
+}
+
+.btn-outline-dark .bi-hand-thumbs-up,
+.btn-outline-dark .bi-hand-thumbs-down {
+    color: black;
+}
+
+/* Image des recettes */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Liste des ingrédients et étapes */
+.list-group-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    color: black;
+}
+
+.list-group-item:hover {
+    background-color: #f5f5f5;
+}
+
+h3 {
+    margin-top: 2rem;
+    color: black;
+}
+
+/* Commentaires */
+.card-body p {
+    color: black;
+}
+
+.card-body small {
+    color: gray;
+}
+
+/* Texte d'alerte */
+.alert-info {
+    background-color: #e9ecef;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+/* Marges et espacements */
+.container {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.my-4 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 2rem;
+}
+/* Polices */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Bouton noir */
+.btn-black {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    transition: all 0.3s ease;
+}
+
+.btn-black:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Hero Section */
+.hero {
+    padding: 100px 0;
+}
+
+/* Conteneur d'image */
+.image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container img {
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.1);
+}
+
+/* Call-to-Action Section */
+.cta {
+    background-color: black;
+    color: white;
+    padding: 100px 0;
+}
+
+.cta .btn-black {
+    background-color: white;
+    color: black;
+    border: 2px solid white;
+}
+
+.cta .btn-black:hover {
+    background-color: black;
+    color: white;
+}
+/* Bouton noir */
+.btn-black {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    transition: all 0.3s ease;
+}
+
+.btn-black:hover {
+    background-color: white;
+    color: black;
+}
+/* Style pour les avatars des utilisateurs */
+.rounded-circle {
+    border: 2px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+.rounded-circle:hover {
+    border-color: black;
+}
+
+/* Style pour les icônes de likes/dislikes */
+.fa-thumbs-up, .fa-thumbs-down {
+    transition: transform 0.3s ease;
+}
+
+.fa-thumbs-up:hover, .fa-thumbs-down:hover {
+    transform: scale(1.2);
+}
+
+/* Style pour les cartes au survol */
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+/* Style pour les boutons avec icônes */
+.btn-outline-dark i {
+    margin-right: 5px;
+}
+
+/* Effet de survol sur les boutons */
+.btn-outline-dark:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Style pour les cartes de commentaires */
+.card {
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style pour les images */
+.image-container img {
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}

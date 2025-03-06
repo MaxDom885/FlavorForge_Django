@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'accueil' %}"> <img src="{% static 'images/logo/F.png' %}" alt="logo FlavorForge" width="60" height="60"></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'accueil' %}active{% endif %}" href="{% url 'accueil' %}">
+                        <i class="fas fa-home"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'profil' %}active{% endif %}" href="{% url 'profil' %}">
+                        <i class="fas fa-user"></i> Profil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'mes_favoris' %}active{% endif %}" href="{% url 'mes_favoris' %}">
+                        <i class="fas fa-heart"></i> Favoris
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'publier_recette' %}active{% endif %}" href="{% url 'publier_recette' %}">
+                        <i class="fas fa-edit"></i> Publier une recette
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <h2 class="mb-4">Mes favoris</h2>
+    {% for favori in favoris %}
+    <div class="card mb-4 shadow-sm">
+        <div class="row g-0">
+            <!-- Image de la recette -->
+            <div class="col-md-4">
+                {% if favori.recette.photo %}
+                <div class="image-container">
+                    <img src="{{ favori.recette.photo.url }}" class="img-fluid rounded-start" alt="Image de {{ favori.recette.titre }}">
+                </div>
+                {% else %}
+                <div class="image-container bg-light d-flex align-items-center justify-content-center">
+                    <i class="fas fa-image fa-3x text-muted"></i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <!-- Titre de la recette -->
+                    <h5 class="card-title">{{ favori.recette.titre }}</h5>
+
+                    <!-- Description de la recette -->
+                    <p class="card-text">{{ favori.recette.description|truncatewords:20 }}</p>
+
+                    <!-- Auteur et photo de profil -->
+                    <div class="d-flex align-items-center mb-3">
+                        {% if favori.recette.auteur.photo_profil %}
+                        <img src="{{ favori.recette.auteur.photo_profil.url }}" alt="Photo de profil" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                        {% else %}
+                        <i class="fas fa-user-circle fa-2x me-2"></i>
+                        {% endif %}
+                        <span>{{ favori.recette.auteur.username }}</span>
+                    </div>
+
+                    <!-- Nombre de réactions et de commentaires -->
+                    <div class="d-flex gap-2 mb-3">
+                        <span class="badge bg-success"><i class="fas fa-thumbs-up"></i> {{ favori.recette.likes.count }}</span>
+                        <span class="badge bg-danger"><i class="fas fa-thumbs-down"></i> {{ favori.recette.dislikes.count }}</span>
+                        <span class="badge bg-info"><i class="fas fa-comment"></i> {{ favori.recette.commentaires.count }}</span>
+                    </div>
+
+                    <!-- Lien vers la recette -->
+                    <a href="{% url 'detail_recette' favori.recette.id %}" class="btn btn-black">Voir la recette</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">Vous n'avez aucune recette dans vos favoris.</div>
+    {% endfor %}
+</div>
+{% endblock %}

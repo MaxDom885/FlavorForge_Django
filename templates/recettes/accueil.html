@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'accueil' %}"> <img src="{% static 'images/logo/F.png' %}" alt="logo FlavorForge" width="60" height="60"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'accueil' %}active{% endif %}" href="{% url 'accueil' %}">
+                        <i class="fas fa-home"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'profil' %}active{% endif %}" href="{% url 'profil' %}">
+                        <i class="fas fa-user"></i> Profil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'mes_favoris' %}active{% endif %}" href="{% url 'mes_favoris' %}">
+                        <i class="fas fa-heart"></i> Favoris
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'publier_recette' %}active{% endif %}" href="{% url 'publier_recette' %}">
+                        <i class="fas fa-edit"></i> Publier une recette
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenu des recettes -->
+<div class="container mt-4">
+    <h2 class="mb-4">Nouveautés</h2>
+    <div class="row">
+        {% for recette in recettes %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if recette.photo %}
+                <div class="image-container">
+                    <img src="{{ recette.photo.url }}" class="card-img-top img-fluid" alt="{{ recette.titre }}">
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        {% if recette.auteur.photo_profil %}
+                        <img src="{{ recette.auteur.photo_profil.url }}" class="rounded-circle me-2" width="40" height="40" alt="Profil">
+                        {% else %}
+                        <i class="fas fa-user-circle fa-2x me-2"></i>
+                        {% endif %}
+                        <span>{{ recette.auteur.username }}</span>
+                    </div>
+                    <h5 class="card-title">{{ recette.titre }}</h5>
+                    <p class="card-text">{{ recette.description|truncatewords:20 }}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <span class="text-success"><i class="fas fa-thumbs-up"></i> {{ recette.like_count }}</span>
+                            <span class="text-danger ms-2"><i class="fas fa-thumbs-down"></i> {{ recette.dislike_count }}</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-comment"></i> {{ recette.commentaires.count }}
+                        </div>
+                    </div>
+                    <a href="{% url 'detail_recette' recette.id %}" class="btn btn-black w-100">Voir la recette</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

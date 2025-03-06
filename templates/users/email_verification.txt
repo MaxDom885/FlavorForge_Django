@@ -1,0 +1,7 @@
+Bonjour {{ user.username }},
+
+Clique sur le lien suivant pour vérifier ton email :
+{{ verification_url }}
+
+Merci,
+L'équipe de FlavorForge
